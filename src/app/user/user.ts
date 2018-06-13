@@ -11,7 +11,7 @@ export interface User {
     status:        number;
     createdAt:     CreatedAt;
     avatar?:       Avatar;
-    roles?:        Roles;
+    roles?:        Role[];
 }
 
 export interface CreatedAt {
@@ -20,9 +20,6 @@ export interface CreatedAt {
     timezone:      string;
 }
 
-export interface Roles {
-    data: Role[];
-}
 
 export interface Role {
     id:   number;

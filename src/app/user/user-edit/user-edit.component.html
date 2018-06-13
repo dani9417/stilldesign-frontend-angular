@@ -1,3 +1,57 @@
-<p>
-  user-edit works!
-</p>
+<div class="container mt-5">
+  <h2 class="text-center">Edit user</h2>
+    <form >
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">ID</span>
+            </div>
+            <input [(ngModel)]="user.id" name="id" type="number" class="form-control">
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="">First and last name</span>
+            </div>
+            <input [(ngModel)]="user.firstName" name="firstName" type="text" class="form-control">
+            <input [(ngModel)]="user.lastName" name="lastName" type="text" class="form-control">
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Email</span>
+            </div>
+            <input [(ngModel)]="user.email" name="email" type="email" class="form-control">
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Phone</span>
+            </div>
+            <input [(ngModel)]="user.phone" name="phone" type="text" class="form-control">
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Introduction</span>
+            </div>
+            <textarea [(ngModel)]="user.introduction" name="introduction" class="form-control" aria-label="With textarea"></textarea>
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Position</span>
+            </div>
+            <input [(ngModel)]="user.position" name="position" type="text" class="form-control">
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Status</span>
+            </div>
+            <input [(ngModel)]="user.status" name="status" type="number" class="form-control">
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </form>
+</div>
