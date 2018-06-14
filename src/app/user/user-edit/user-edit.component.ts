@@ -28,15 +28,18 @@ export class UserEditComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.userService.getUser(+params.get('id')))
     )
-    .subscribe((user: User) => this.userForm.setValue({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phone: user.phone,
-      introduction: user.introduction,
-      position: user.position,
-      status: user.status
-    }))
+    .subscribe((user: User) => {
+      this.user = user;
+      this.userForm.setValue({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phone,
+        introduction: user.introduction,
+        position: user.position,
+        status: user.status
+      })
+    })
   }
 
 
@@ -53,7 +56,16 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.userForm.value)
+
+    const { id } = this.user;
+    const { firstName, lastName ,status } = this.userForm.value;
+    const updatedUser: User = {
+      id,
+      active: status === 1,
+      name: `${firstName} ${lastName}`,
+      ...this.userForm.value
+    }
+    this.userService.updateUser(updatedUser).subscribe(console.log)
   }
 
 }

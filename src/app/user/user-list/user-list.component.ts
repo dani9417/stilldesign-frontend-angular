@@ -18,7 +18,10 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.userService.getUsers()
     .subscribe(
-    (users: User[]) => this.users = users,
+    (users: User[]) => {
+      this.users = users;
+      // console.log(JSON.stringify(users))
+    },
     (error: HttpErrorResponse) => {
       if(error.status === 401) {
         this.router.navigate(['/login'])
