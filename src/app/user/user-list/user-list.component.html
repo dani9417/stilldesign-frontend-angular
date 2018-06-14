@@ -1,8 +1,7 @@
 <div class="container mt-5 ">
   <h1 class="text-center">Users</h1>
   <div class="list-group pt-3">
-    <!-- <li *ngFor="let user of users" class="list-group-item">{{user.firstName}} {{user.lastName}}  ({{ user.id }})</li> -->
-    <a *ngFor="let user of users" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <a *ngFor="let user of users" [routerLink]='user.id' class="list-group-item list-group-item-action flex-column align-items-start">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{ getUserName(user) }} - ID: {{ user.id }}</h5>
         <a class="removeItem" href="#">

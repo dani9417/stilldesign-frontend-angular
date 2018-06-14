@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
+import { Observable } from 'rxjs';
+import { UserService } from '../../services/user.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-user-edit',
@@ -8,23 +13,47 @@ import { User } from '../user';
 })
 export class UserEditComponent implements OnInit {
 
-  user: User = {
-    id: 1,
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'test@gmail.com',
-    phone: '0620000000',
-    introduction: 'text',
-    position: 'position',
-    status: 2,
-    avatar: {file: 'file', src: 'http://via.placeholder.com/350x150'},
-    roles: [{id: 1, name: 'role'}, {id: 2, name: 'role2'}, {id: 3, name: 'role3'}],
-    createdAt: {date: '123', timezone_type: 2, timezone: 'asd'}
-  };
+  userForm: FormGroup;
+  user: User;
 
-  constructor() { }
+  constructor(
+    private userService: UserService, 
+    private route: ActivatedRoute,
+    private fb: FormBuilder
+  ) { 
+    this.createForm();
+  }
 
   ngOnInit() {
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => this.userService.getUser(+params.get('id')))
+    )
+    .subscribe((user: User) => this.userForm.setValue({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone,
+      introduction: user.introduction,
+      position: user.position,
+      status: user.status
+    }))
+  }
+
+
+  createForm() {
+    this.userForm = this.fb.group({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      introduction: '',
+      position: '',
+      status: ''
+    });
+  }
+
+  onSubmit() {
+    console.log(this.userForm.value)
   }
 
 }

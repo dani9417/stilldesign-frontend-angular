@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { User } from './../user';
+import { UserService } from './../../services/user.service';
+import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new-user',
@@ -8,11 +12,14 @@ import { User } from './../user';
 })
 export class NewUserComponent implements OnInit {
 
-  user: User = null;
+  user: Observable<User> = null;
 
-  constructor() { }
+  constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.user = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => this.userService.getUser(+params.get('id')))
+    )
   }
 
 }

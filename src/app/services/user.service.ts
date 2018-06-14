@@ -23,6 +23,16 @@ export class UserService {
       .pipe(map((res: { data }) => res.data))
   }
 
+  getUser(id: number) {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.access_token}`
+      }
+    }
+    return this.http.get(`http://api.iss.stilldesign.work/admin/user/${id}`,config )
+      .pipe(map((res: { data }) => res.data))
+  }
+
   
 
 }
