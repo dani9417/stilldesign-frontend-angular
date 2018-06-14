@@ -18,7 +18,7 @@ export class UserEditComponent implements OnInit {
     position: 'position',
     status: 2,
     avatar: {file: 'file', src: 'http://via.placeholder.com/350x150'},
-    roles: [{id: 1, name: 'role'}],
+    roles: [{id: 1, name: 'role'}, {id: 2, name: 'role2'}, {id: 3, name: 'role3'}],
     createdAt: {date: '123', timezone_type: 2, timezone: 'asd'}
   };
 

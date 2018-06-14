@@ -51,6 +51,15 @@
             <input [(ngModel)]="user.status" name="status" type="number" class="form-control">
         </div>
 
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Roles</span>
+          </div>
+              <select ngModel name="roles" id="" class="form-control" multiple>
+                <option  *ngFor="let role of user.roles" [ngValue]="role" >{{role.name}}</option>
+              </select>
+        </div>
+
 
         <button type="submit" class="btn btn-primary">Save changes</button>
       </form>
