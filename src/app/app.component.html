@@ -1,1 +1,5 @@
+<nav *ngIf="loggedIn" class="navbar navbar-light bg-light">
+    <a class="navbar-brand">Stilldesign</a>
+    <button (click)="logout()" class="btn btn-outline-danger">Logout</button>
+</nav>
 <router-outlet></router-outlet>
