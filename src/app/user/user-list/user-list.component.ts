@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
+import { UserService } from '../../services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -8,19 +11,27 @@ import { User } from '../user';
 })
 export class UserListComponent implements OnInit {
 
-  users: User[] = [{
-    id: 1,
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'test@gmail.com',
-    phone: '0620000000',
-    status: 2,
-    createdAt: {date: '123', timezone_type: 2, timezone: 'asd'}
-  }];
+  users: User[];
 
-  constructor() { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.userService.getUsers()
+    .subscribe(
+    (users: User[]) => this.users = users,
+    (error: HttpErrorResponse) => {
+      if(error.status === 401) {
+        this.router.navigate(['/login'])
+      }
+    })
+  }
+
+
+  getUserName(user: User) {
+    const { firstName, lastName } = user;
+    if (!firstName && !lastName) return 'Name not available';
+
+    return `${firstName} ${lastName}`
   }
 
 }

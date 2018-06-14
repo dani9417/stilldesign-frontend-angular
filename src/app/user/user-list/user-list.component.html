@@ -1,17 +1,17 @@
-<div class="container mt-5">
+<div class="container mt-5 ">
   <h1 class="text-center">Users</h1>
   <div class="list-group pt-3">
     <!-- <li *ngFor="let user of users" class="list-group-item">{{user.firstName}} {{user.lastName}}  ({{ user.id }})</li> -->
     <a *ngFor="let user of users" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
       <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{user.firstName}} {{user.lastName}} - ID: {{ user.id }}</h5>
+        <h5 class="mb-1">{{ getUserName(user) }} - ID: {{ user.id }}</h5>
         <a class="removeItem" href="#">
             <i class="fas fa-trash"></i>
           Delete
         </a>
       </div>
       <p class="mb-1">Email: {{user.email}}</p>
-      <p class="mb-1">Phone: {{user.phone}}</p>
+      <p class="mb-1">Phone: {{user.phone || '-'}}</p>
       <small>Created at: {{user.createdAt.date}}</small>
     </a>
   </div>

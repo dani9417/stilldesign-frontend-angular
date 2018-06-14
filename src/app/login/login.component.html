@@ -1,8 +1,8 @@
 <div class="text-center">
-  <form action="" class="form-signin">
+  <form (ngSubmit)="onSubmit()" class="form-signin">
     <h1 class="h3 font-weight-normal">Please sign in</h1>
-    <input type="email" class="form-control mb-1" id="inputEmail" placeholder="Email address">
-    <input type="password" class="form-control mb-3" id="inputPassword" placeholder="Password">
+    <input type="email" class="form-control mb-1" #inputEmail placeholder="Email address">
+    <input type="password" class="form-control mb-3" #inputPassword placeholder="Password">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
 </div>

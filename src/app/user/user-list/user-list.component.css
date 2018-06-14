@@ -1,3 +1,8 @@
 .removeItem {
     text-decoration: none;
 }
+
+.list-group {
+    overflow-y: scroll;
+    max-height: 80vh;
+}
