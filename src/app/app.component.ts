@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  loggedIn: boolean = !!localStorage.getItem('access_token')
+  loggedIn: boolean = !!sessionStorage.getItem('access_token')
   
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.loggedIn = false;
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
     this.router.navigate(['/']);
   }
 }
