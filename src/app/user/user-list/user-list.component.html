@@ -1,11 +1,11 @@
-<div class="container mt-5 ">
+<div class="user-container mt-2 ">
   <h1 class="text-center">Users</h1>
-  <a routerLink="new" class="btn btn-primary">
+  <a routerLink="new" class="btn btn-primary mb-3">
       <i class="fas fa-user-plus"></i>
     Add user
   </a>
-  <div class="list-group pt-3">
-    <a *ngFor="let user of users" routerLink="{{user.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+  <div class="user-list mb-3">
+    <a *ngFor="let user of users" routerLink="{{user.id}}"  class="user-item">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{ getUserName(user) }} - ID: {{ user.id }}</h5>
       </div>
@@ -14,4 +14,18 @@
       <small>Created at: {{user.createdAt.date}}</small>
     </a>
   </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>
