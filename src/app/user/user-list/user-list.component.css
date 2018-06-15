@@ -30,6 +30,10 @@
     color: white;
 }
 
+li.disabled {
+    pointer-events: none;
+}
+
 @media (max-width: 960px) {
     .user-list {
         display: grid;
