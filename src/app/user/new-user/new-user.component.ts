@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { User } from './../user';
@@ -12,14 +13,42 @@ import { Observable } from 'rxjs';
 })
 export class NewUserComponent implements OnInit {
 
-  user: Observable<User> = null;
+  userForm: FormGroup;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  constructor(
+    private userService: UserService, 
+    private route: ActivatedRoute,
+    private fb: FormBuilder
+  ) {
+    this.createForm();
+   }
 
-  ngOnInit() {
-    this.user = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.userService.getUser(+params.get('id')))
-    )
+  ngOnInit() { }
+
+  createForm() {
+    this.userForm = this.fb.group({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      phone: '',
+      introduction: '',
+      position: '',
+      active: false
+    });
+  }
+
+  onSubmit() {
+    const { firstName, lastName, active, ...rest } = this.userForm.value;
+    const newUser: User = {
+      name: `${firstName} ${lastName}`,
+      active: active ? 1 : 0,
+      ...rest
+    }
+    console.log(newUser)
+
+    this.userService.addUser(newUser)
+      .subscribe(console.log, console.log)
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -19,7 +19,8 @@ export class UserEditComponent implements OnInit {
   constructor(
     private userService: UserService, 
     private route: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { 
     this.createForm();
   }
@@ -28,7 +29,8 @@ export class UserEditComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.userService.getUser(+params.get('id')))
     )
-    .subscribe((user: User) => {
+    .subscribe(
+      (user: User) => {
       this.user = user;
       this.userForm.setValue({
         firstName: user.firstName,
@@ -39,6 +41,9 @@ export class UserEditComponent implements OnInit {
         position: user.position,
         status: user.status
       })
+    },
+    error => {
+      this.router.navigate(['/users'])
     })
   }
 
@@ -65,7 +70,13 @@ export class UserEditComponent implements OnInit {
       name: `${firstName} ${lastName}`,
       ...this.userForm.value
     }
-    this.userService.updateUser(updatedUser).subscribe(console.log)
+    this.userService.updateUser(updatedUser).subscribe((user: User) => this.user = user)
+  }
+
+  deleteUser() {
+    const { id } = this.user;
+    this.userService.deleteUser(id).subscribe(console.log)
+    this.router.navigate(['/users'])
   }
 
 }

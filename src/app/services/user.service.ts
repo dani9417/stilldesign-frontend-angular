@@ -43,6 +43,29 @@ export class UserService {
     // console.log(user)
 
     return this.http.put(`http://api.iss.stilldesign.work/admin/user/${user.id}`,user, config)
+      .pipe(map((res: { data }) => res.data))
+  }
+
+  addUser(user: User) {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.access_token}`,
+        'Content-Type': 'application/json'
+      }
+    }
+
+    return this.http.post('http://api.iss.stilldesign.work/admin/user',JSON.stringify(user), config)
+      .pipe(map((res: { data }) => res.data))
+  }
+
+  deleteUser(id: number) {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.access_token}`
+      }
+    }
+
+    return this.http.delete(`http://api.iss.stilldesign.work/admin/user/${id}`, config)
   }
 
   

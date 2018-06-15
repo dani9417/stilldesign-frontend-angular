@@ -1,13 +1,13 @@
 <div class="container mt-5 ">
   <h1 class="text-center">Users</h1>
+  <a routerLink="new" class="btn btn-primary">
+      <i class="fas fa-user-plus"></i>
+    Add user
+  </a>
   <div class="list-group pt-3">
-    <a *ngFor="let user of users" [routerLink]='user.id' class="list-group-item list-group-item-action flex-column align-items-start">
+    <a *ngFor="let user of users" routerLink="{{user.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{ getUserName(user) }} - ID: {{ user.id }}</h5>
-        <a class="removeItem" href="#">
-            <i class="fas fa-trash"></i>
-          Delete
-        </a>
       </div>
       <p class="mb-1">Email: {{user.email}}</p>
       <p class="mb-1">Phone: {{user.phone || '-'}}</p>
