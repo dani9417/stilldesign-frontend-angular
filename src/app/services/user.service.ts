@@ -1,8 +1,8 @@
+import { UserResponse } from './../models/user-response';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, flatMap, switchMap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { User } from "../models/user";
-import { UserResponse } from "../models/user-response";
 
 @Injectable({
   providedIn: "root"
@@ -24,7 +24,7 @@ export class UserService {
     return this.http.get(
       `http://api.iss.stilldesign.work/admin/user?page=${page}`,
       this.config
-    );
+    )
   }
 
   getUser(id: number) {
@@ -47,17 +47,16 @@ export class UserService {
     const config = {
       headers: {
         Authorization: `Bearer ${this.access_token}`,
-        "Content-Type": "application/json"
       }
     };
 
     return this.http
       .post(
         "http://api.iss.stilldesign.work/admin/user",
-        JSON.stringify(user),
+        user,
         this.config
       )
-      .pipe(map((res: { data }) => res.data));
+      .pipe(map((res: UserResponse) => res.data));
   }
 
   deleteUser(id: number) {

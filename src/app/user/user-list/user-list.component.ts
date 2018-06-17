@@ -15,6 +15,7 @@ export class UserListComponent implements OnInit {
   users: User[];
   pagination: Pagination;
   pageNumbers: number[] = [];
+  loading: boolean;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -34,14 +35,16 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers(page: number = 1) {
+    this.loading = true;
     this.userService.getUsers(page).subscribe(
       (userResponse: UserResponse) => {
+        this.loading = false;
         this.users = userResponse.data;
         this.pagination = userResponse.meta.pagination;
         this.pageNumbers = Array(this.pagination.totalPages).fill(null).map( (x,i) => i + 1 );
-        console.log(this.pagination)
       },
       (error: HttpErrorResponse) => {
+        this.loading = false;
         if (error.status === 401) {
           this.router.navigate(["/login"]);
         }
