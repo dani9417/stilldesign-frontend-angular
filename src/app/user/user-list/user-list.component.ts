@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Pagination } from './../../models/user-response';
 import { Component, OnInit } from "@angular/core";
 import { User } from "../../models/user";
@@ -17,7 +18,11 @@ export class UserListComponent implements OnInit {
   pageNumbers: number[] = [];
   loading: boolean;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService, 
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.getUsers();
@@ -45,9 +50,8 @@ export class UserListComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         this.loading = false;
-        if (error.status === 401) {
-          this.router.navigate(["/login"]);
-        }
+        this.authService.loginSource.next(false);
+        this.router.navigate(["/login"]);
       }
     );
   }

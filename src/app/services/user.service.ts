@@ -33,10 +33,10 @@ export class UserService {
       .pipe(map((res: { data }) => res.data));
   }
 
-  updateUser(user: User) {
+  updateUser({ id, ...user}) {
     return this.http
       .put(
-        `http://api.iss.stilldesign.work/admin/user/${user.id}`,
+        `http://api.iss.stilldesign.work/admin/user/${id}`,
         user,
         this.config
       )
