@@ -66,9 +66,10 @@ export class UserEditComponent implements OnInit {
   onChanges() {
     this.userForm.valueChanges.subscribe(user => {
       Object.keys(user).forEach(keyName => {
-        this.userForm.get(keyName).valueChanges.subscribe(value => this.user[keyName] = value);
-      })
-      console.log(this.user);
+        this.userForm
+          .get(keyName)
+          .valueChanges.subscribe(value => (this.user[keyName] = value));
+      });
     });
   }
 
@@ -82,7 +83,9 @@ export class UserEditComponent implements OnInit {
       ...this.userForm.value
     };
     console.log(this.userForm.value);
-    this.userService.updateUser(updatedUser).subscribe((user: User) => this.user = user)
+    this.userService
+      .updateUser(updatedUser)
+      .subscribe((user: User) => (this.user = user));
   }
 
   deleteUser() {

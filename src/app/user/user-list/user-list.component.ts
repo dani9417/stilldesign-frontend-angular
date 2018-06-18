@@ -1,5 +1,5 @@
-import { AuthService } from './../../services/auth.service';
-import { Pagination } from './../../models/user-response';
+import { AuthService } from "./../../services/auth.service";
+import { Pagination } from "./../../models/user-response";
 import { Component, OnInit } from "@angular/core";
 import { User } from "../../models/user";
 import { UserService } from "../../services/user.service";
@@ -19,7 +19,7 @@ export class UserListComponent implements OnInit {
   loading: boolean;
 
   constructor(
-    private userService: UserService, 
+    private userService: UserService,
     private router: Router,
     private authService: AuthService
   ) {}
@@ -36,17 +36,19 @@ export class UserListComponent implements OnInit {
   }
 
   selectPage(page: number) {
-    this.getUsers(page)
+    this.getUsers(page);
   }
 
   getUsers(page: number = 1) {
     this.loading = true;
     this.userService.getUsers(page).subscribe(
-      (userResponse: UserResponse) => {
+      ({ data, meta }: UserResponse) => {
         this.loading = false;
-        this.users = userResponse.data;
-        this.pagination = userResponse.meta.pagination;
-        this.pageNumbers = Array(this.pagination.totalPages).fill(null).map( (x,i) => i + 1 );
+        this.users = data;
+        this.pagination = meta.pagination;
+        this.pageNumbers = Array(this.pagination.totalPages)
+          .fill(null)
+          .map((x, i) => i + 1);
       },
       (error: HttpErrorResponse) => {
         this.loading = false;

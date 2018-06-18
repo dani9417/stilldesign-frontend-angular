@@ -1,6 +1,5 @@
 <div class="container mt-5">
   <h2 class="text-center">Create new user</h2>
-  <p>{{ userForm.value | json }}</p>
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()" >
         <div class="input-group mb-2">
             <div class="input-group-prepend">

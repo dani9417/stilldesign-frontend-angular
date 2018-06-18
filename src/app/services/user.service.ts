@@ -1,8 +1,9 @@
-import { UserResponse } from './../models/user-response';
+import { UserResponse } from "./../models/user-response";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { User } from "../models/user";
+import { USERS_URL } from "./constants";
 
 @Injectable({
   providedIn: "root"
@@ -21,48 +22,28 @@ export class UserService {
   }
 
   getUsers(page: number = 1) {
-    return this.http.get(
-      `http://api.iss.stilldesign.work/admin/user?page=${page}`,
-      this.config
-    )
+    return this.http.get(`${USERS_URL}?page=${page}`, this.config);
   }
 
   getUser(id: number) {
     return this.http
-      .get(`http://api.iss.stilldesign.work/admin/user/${id}`, this.config)
+      .get(`${USERS_URL}/${id}`, this.config)
       .pipe(map((res: { data }) => res.data));
   }
 
-  updateUser({ id, ...user}) {
+  updateUser({ id, ...user }) {
     return this.http
-      .put(
-        `http://api.iss.stilldesign.work/admin/user/${id}`,
-        user,
-        this.config
-      )
+      .put(`${USERS_URL}/${id}`, user, this.config)
       .pipe(map((res: { data }) => res.data));
   }
 
   addUser(user: User) {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${this.access_token}`,
-      }
-    };
-
     return this.http
-      .post(
-        "http://api.iss.stilldesign.work/admin/user",
-        user,
-        this.config
-      )
+      .post(USERS_URL, user, this.config)
       .pipe(map((res: UserResponse) => res.data));
   }
 
   deleteUser(id: number) {
-    return this.http.delete(
-      `http://api.iss.stilldesign.work/admin/user/${id}`,
-      this.config
-    );
+    return this.http.delete(`${USERS_URL}/${id}`, this.config);
   }
 }
